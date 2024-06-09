@@ -1,13 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
+import { Provider } from 'react-redux';
+import store from "./store.js";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/styles/bootstrap.custom.css";
+import "./assets/styles/index.css";
+import App from './App.js';
 import reportWebVitals from './reportWebVitals';
+import HomeScreen from './screens/HomeScreen.jsx';
+import ProductScreen from "./screens/ProductScreen.jsx";
+import CartScreen from './screens/CartScreen.jsx';
+import LoginScreen from './screens/LoginScreen.jsx';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="/" index={true} element={<HomeScreen />}></Route>
+      <Route path="/product/:id" element={<ProductScreen />}></Route>
+      <Route path="/cart" element={<CartScreen />}></Route>
+      <Route path="/login" element={<LoginScreen />}></Route>
+    </Route>
+  )
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
