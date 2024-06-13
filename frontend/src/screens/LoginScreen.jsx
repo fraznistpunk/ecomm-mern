@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from "../components/FormContainer.jsx";
 import Loader from '../components/Loader.jsx';
-import {useLoginMutation} from "../slices/usersApiSlice.js";
+import { useLoginMutation } from "../slices/usersApiSlice.js";
 import { setCredentials } from '../slices/authSlice.js';
 import { toast } from 'react-toastify';
 
@@ -17,9 +17,24 @@ const LoginScreen = () => {
   const [login, {isLoading}] = useLoginMutation();
   const {userInfo} = useSelector((state) => state.auth);
 
-  const submitHandler = (event) => {
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get('redirect') || '/';
+  useEffect(() => {
+    if(userInfo) {
+      navigate(redirect);
+    }
+  }, [userInfo, redirect, navigate]);
+
+  const submitHandler = async (event) => {
     event.preventDefault();
-    console.log("Submit clicked");
+    try {
+      const res = await login({email, password}).unwrap();
+      dispatch(setCredentials({...res, }));
+      navigate(redirect);
+    } catch (error) {
+      toast.error(error?.data?.msg || error.error);
+    }
   }
 
   return (
@@ -48,10 +63,16 @@ const LoginScreen = () => {
             }}
           ></Form.Control>
         </Form.Group>
-        <Button type='submit' variant='primary' className='mt-2' >Sign in</Button>
+        <Button type="submit" variant="primary" className="mt-2" disabled={isLoading}>
+          Sign in
+        </Button>
+        
+        {isLoading && <Loader/>}
       </Form>
-      <Row className='py-3'>
-        New customer? <Link to='/register'>Register</Link>
+      <Row className="py-3">
+        <Col>
+          New customer? <Link to={redirect ? `/register?redirect=${redirect}` : `/register`}>Register</Link>
+        </Col>
       </Row>
     </FormContainer>
   );
