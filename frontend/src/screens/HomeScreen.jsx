@@ -34,7 +34,7 @@ const HomeScreen = () => {
       ) : isError ? (
         <div>
           <Message variant="danger">
-            {isError?.data?.message || isError.error}
+            { isError?.data?.message || isError.error}
           </Message>
         </div>
       ) : (
