@@ -2,7 +2,6 @@ import React from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
 import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
