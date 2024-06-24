@@ -7,6 +7,7 @@ import Loader from '../components/Loader.jsx';
 import Message from '../components/Message.jsx';
 import Pageinate from '../components/Pageinate.jsx';
 import { Link, useParams } from 'react-router-dom';
+import ProductCarousel from '../components/ProductCarousel.jsx';
 
 function mapProduct(product) {
     return (
@@ -32,7 +33,7 @@ const HomeScreen = () => {
   const {data, isLoading, isError} = useGetProductsQuery({ keyword, pageNumber });
   return (
     <>
-    {keyword && <Link to="/" className='btn btn-light mb-4'>Go back</Link>}
+    {!keyword ? <ProductCarousel /> : (<Link to="/" className='btn btn-light mb-4'>Go back</Link>)}
       {isLoading ? (
         <Loader />
       ) : isError ? (
