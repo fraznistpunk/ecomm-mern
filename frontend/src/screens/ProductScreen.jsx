@@ -9,7 +9,6 @@ import Ratings from "../components/Ratings.jsx";
 import { useGetProductDetailsQuery, useCreateReviewMutation } from "../slices/productsApiSlice.js";
 import Loader from "../components/Loader.jsx";
 import Message from "../components/Message.jsx";
-import Ratings from "../components/Ratings.jsx";
 import { addToCart } from "../slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
