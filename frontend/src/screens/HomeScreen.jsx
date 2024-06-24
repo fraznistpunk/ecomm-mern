@@ -5,6 +5,8 @@ import Product from '../components/Product.jsx';
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import Loader from '../components/Loader.jsx';
 import Message from '../components/Message.jsx';
+import Pageinate from '../components/Pageinate.jsx';
+import { useParams } from 'react-router-dom';
 
 function mapProduct(product) {
     return (
@@ -26,7 +28,8 @@ const HomeScreen = () => {
   // }, []);
 
   //redux implementation
-  const {data : products, isLoading, isError} = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const {data, isLoading, isError} = useGetProductsQuery({ pageNumber });
   return (
     <>
       {isLoading ? (
@@ -40,7 +43,8 @@ const HomeScreen = () => {
       ) : (
         <>
           <h1>Latest Products</h1>
-          <Row>{products.map(mapProduct)}</Row>
+          <Row>{data.products.map(mapProduct)}</Row>
+          <Pageinate pages={data.pages} page={data.page} />
         </>
       )}
     </>
