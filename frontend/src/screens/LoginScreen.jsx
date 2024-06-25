@@ -7,6 +7,7 @@ import Loader from '../components/Loader.jsx';
 import { useLoginMutation } from "../slices/usersApiSlice.js";
 import { setCredentials } from '../slices/authSlice.js';
 import { toast } from 'react-toastify';
+import Meta from '../components/Meta.jsx';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +40,7 @@ const LoginScreen = () => {
 
   return (
     <FormContainer>
+      <Meta title="E-Comm - Login"/>
       <h1>Sign in</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email" className="my-3">
