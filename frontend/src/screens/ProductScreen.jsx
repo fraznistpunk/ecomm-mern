@@ -12,6 +12,7 @@ import Message from "../components/Message.jsx";
 import { addToCart } from "../slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Meta from "../components/Meta.jsx";
 
 const ProductScreen = () => {
   const { id: productId } = useParams(); // prodId from url.
@@ -77,6 +78,7 @@ const ProductScreen = () => {
         </div>
       ) : (
         <>
+        <Meta title={product.name} />
         <Row>
           <Col md={5}>
             <Image src={product.image} alt={product.name} fluid />
