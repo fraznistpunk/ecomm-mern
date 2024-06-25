@@ -5,6 +5,9 @@ import Product from '../components/Product.jsx';
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import Loader from '../components/Loader.jsx';
 import Message from '../components/Message.jsx';
+import Pageinate from '../components/Pageinate.jsx';
+import { Link, useParams } from 'react-router-dom';
+import ProductCarousel from '../components/ProductCarousel.jsx';
 
 function mapProduct(product) {
     return (
@@ -26,9 +29,11 @@ const HomeScreen = () => {
   // }, []);
 
   //redux implementation
-  const {data : products, isLoading, isError} = useGetProductsQuery();
+  const { pageNumber, keyword } = useParams();
+  const {data, isLoading, isError} = useGetProductsQuery({ keyword, pageNumber });
   return (
     <>
+    {!keyword ? <ProductCarousel /> : (<Link to="/" className='btn btn-light mb-4'>Go back</Link>)}
       {isLoading ? (
         <Loader />
       ) : isError ? (
@@ -40,7 +45,8 @@ const HomeScreen = () => {
       ) : (
         <>
           <h1>Latest Products</h1>
-          <Row>{products.map(mapProduct)}</Row>
+          <Row>{data.products.map(mapProduct)}</Row>
+          <Pageinate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
         </>
       )}
     </>
