@@ -12,7 +12,6 @@ import Message from "../components/Message.jsx";
 import { addToCart } from "../slices/cartSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Meta from "../components/Meta.jsx";
 
 const ProductScreen = () => {
   const { id: productId } = useParams(); // prodId from url.
@@ -59,6 +58,7 @@ const ProductScreen = () => {
       }).unwrap();
       refetch();
       setComment('');
+      toast.success("Review created successfully")
     } catch(err) {
       toast.error(err?.data?.msg || err.error);
     }
@@ -78,7 +78,6 @@ const ProductScreen = () => {
         </div>
       ) : (
         <>
-        <Meta title={product.name} />
         <Row>
           <Col md={5}>
             <Image src={product.image} alt={product.name} fluid />
@@ -172,7 +171,7 @@ const ProductScreen = () => {
                   <Form onSubmit={submitHandler}>
                     <Form.Group controlId="rating" className="my-2">
                       <Form.Label>Rating</Form.Label>
-                      <Form.Control type="select" value={rating} onChange={(e) => setRating(e.target.value)}>
+                      <Form.Control as="select" value={rating} onChange={(e) => setRating(e.target.value)}>
                         <option value=''>Select ...</option>
                         <option value='1'>1 - Poor</option>
                         <option value='2'>1 - Fair</option>
