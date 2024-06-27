@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import Pageinate from '../../components/Pageinate';
 
 const ProductListScreen = () => {
-  const pageNumber = useParams();
+  const {pageNumber} = useParams();
     const { data, isLoading, error, refetch } = useGetProductsQuery({pageNumber,});
     const [createProduct, { isLoading : loadingCreate }] = useCreateProductMutation();
     const [deleteProduct, { isLoading : loadingDelete }] = useDeleteProductMutation();
