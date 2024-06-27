@@ -1,5 +1,5 @@
 import React from 'react';
-import { CarouselItem, Carousel, Image } from "react-bootstrap";
+import { Carousel, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useGetTopProductsQuery } from '../slices/productsApiSlice';
 import Loader from "../components/Loader.jsx";
