@@ -31,17 +31,17 @@ const HomeScreen = () => {
 
   //redux implementation
   const { pageNumber, keyword } = useParams();
-  const {data, isLoading, isError} = useGetProductsQuery({ keyword, pageNumber });
+  const {data, isLoading, error} = useGetProductsQuery({ keyword, pageNumber });
   return (
     <>
     <Meta/>
     {!keyword ? <ProductCarousel /> : (<Link to="/" className='btn btn-light mb-4'>Go back</Link>)}
       {isLoading ? (
         <Loader />
-      ) : isError ? (
+      ) : error ? (
         <div>
           <Message variant="danger">
-            { isError?.data?.message || isError.error}
+            { error?.data?.msg || error.error}
           </Message>
         </div>
       ) : (
