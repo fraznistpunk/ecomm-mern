@@ -6,16 +6,16 @@ const notFound = (req, res, next) => {
 
 const errorHandler = (err, req, res, next) => {
     let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    let msg = err.message;
+    let message = err.message;
     // check for mongoose bad ObjectId
-    if(err.name === 'CastError' && err.kind === 'ObjectId') {
-        msg = 'Resource not found';
-        statusCode = 404;
-    }
-
+    // if(err.name === 'CastError' && err.kind === 'ObjectId') {
+    //     msg = 'Resource not found';
+    //     statusCode = 404;
+    // }
+    
     res.status(statusCode).json({
-        msg,
-        stack : process.env.NODE_ENV === 'production' ? "an error occured (^_^)" : err.stack,
+      msg: message,
+      stack: process.env.NODE_ENV === "production" ? null : err.stack,
     });
 };
 

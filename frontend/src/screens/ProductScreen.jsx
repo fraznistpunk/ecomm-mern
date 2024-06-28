@@ -40,7 +40,7 @@ const ProductScreen = () => {
   const {userInfo} = useSelector((state) => state.auth);
 
   // redux
-  const {data : product, refetch, isLoading, isError} = useGetProductDetailsQuery(productId);
+  const {data : product, refetch, isLoading, error} = useGetProductDetailsQuery(productId);
   const addToCartHandler = () => {
     dispatch(
       addToCart({
@@ -70,10 +70,10 @@ const ProductScreen = () => {
       </Link>
       {isLoading ? (
         <Loader />
-      ) : isError ? (
+      ) : error ? (
         <div>
           <Message variant="danger">
-            {isError?.data?.message || isError.error}
+            {error?.data?.msg || error.error}
           </Message>
         </div>
       ) : (
